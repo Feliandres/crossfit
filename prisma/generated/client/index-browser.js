@@ -119,10 +119,70 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.CrossfitScalarFieldEnum = {
+  id: 'id',
+  ruc: 'ruc',
+  nombre: 'nombre',
+  direccion: 'direccion',
+  telefono: 'telefono',
+  email: 'email'
+};
+
+exports.Prisma.PlanScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  descripcion: 'descripcion',
+  valor: 'valor',
+  duracion: 'duracion',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MemberScalarFieldEnum = {
+  id: 'id',
+  cedula: 'cedula',
+  nombre: 'nombre',
+  apellido: 'apellido',
+  email: 'email',
+  telefono: 'telefono',
+  telefonoEmergencia: 'telefonoEmergencia',
+  fechaNacimiento: 'fechaNacimiento',
+  sexo: 'sexo',
+  direccion: 'direccion',
+  nacionalidad: 'nacionalidad',
+  fechaInscripcion: 'fechaInscripcion',
+  estado: 'estado',
+  planId: 'planId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AttendanceScalarFieldEnum = {
+  id: 'id',
+  fecha: 'fecha',
+  miembroId: 'miembroId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PayScalarFieldEnum = {
+  id: 'id',
+  fecha: 'fecha',
+  miembroId: 'miembroId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
+  nombre: 'nombre',
+  apellido: 'apellido',
   email: 'email',
-  name: 'name'
+  password: 'password',
+  estado: 'estado',
+  rol: 'rol',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -139,9 +199,18 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.Role = exports.$Enums.Role = {
+  USER: 'USER',
+  ADMIN: 'ADMIN',
+  TRAINER: 'TRAINER'
+};
 
 exports.Prisma.ModelName = {
+  Crossfit: 'Crossfit',
+  Plan: 'Plan',
+  Member: 'Member',
+  Attendance: 'Attendance',
+  Pay: 'Pay',
   User: 'User'
 };
 

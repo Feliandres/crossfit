@@ -5,14 +5,15 @@ generator client {
   provider        = "prisma-client-js"
   output          = "./generated/client"
   previewFeatures = ["postgresqlExtensions"]
-  //extensions = [hstore(schema: "myHstoreSchema"), pg_trgm, postgis(version: "2.1")]
+  extensions = [hstore(schema: "myHstoreSchema"), pg_trgm, postgis(version: "2.1")]
 }
 
 datasource db {
   provider  = "postgresql"
+  //url       = env("DATABASE_URL")
   url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
-  //extensions = [uuidOssp(map: "uuid-ossp")]
+  extensions = [uuidOssp(map: "uuid-ossp")]
 }
 
 model Crossfit {
@@ -31,7 +32,7 @@ model Plan {
   valor       Decimal  @db.Decimal(5, 2)
   duracion    Int      @db.Integer
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime? @updatedAt
   Member      Member[]
 }
 
@@ -52,9 +53,9 @@ model Member {
   plan               Plan?        @relation(fields: [planId], references: [id])
   planId             Int          @default(1)
   createdAt          DateTime     @default(now())
-  updatedAt          DateTime     @updatedAt
-  Asistencia         Attendance[]
-  Pago               Pay[]
+  updatedAt          DateTime?     @updatedAt
+  Attendance         Attendance[]
+  Pay                Pay[]
 }
 
 model Attendance {
@@ -63,7 +64,7 @@ model Attendance {
   miembro   Member   @relation(fields: [miembroId], references: [id])
   miembroId Int
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime? @updatedAt
 }
 
 model Pay {
@@ -72,7 +73,7 @@ model Pay {
   miembro   Member   @relation(fields: [miembroId], references: [id])
   miembroId Int
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime? @updatedAt
 }
 
 model User {
@@ -84,7 +85,7 @@ model User {
   estado    Boolean?     @default(true) @db.Boolean()
   rol       Role     @default(USER)
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime? @updatedAt
 }
 
 enum Role {
