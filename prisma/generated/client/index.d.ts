@@ -3665,8 +3665,8 @@ export namespace Prisma {
     planId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    plan?: boolean | Member$planArgs<ExtArgs>
     Attendance?: boolean | Member$AttendanceArgs<ExtArgs>
+    plan?: boolean | PlanDefaultArgs<ExtArgs>
     Pay?: boolean | Member$PayArgs<ExtArgs>
     _count?: boolean | MemberCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["member"]>
@@ -3692,8 +3692,8 @@ export namespace Prisma {
 
 
   export type MemberInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    plan?: boolean | Member$planArgs<ExtArgs>
     Attendance?: boolean | Member$AttendanceArgs<ExtArgs>
+    plan?: boolean | PlanDefaultArgs<ExtArgs>
     Pay?: boolean | Member$PayArgs<ExtArgs>
     _count?: boolean | MemberCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -3702,8 +3702,8 @@ export namespace Prisma {
   export type $MemberPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Member"
     objects: {
-      plan: Prisma.$PlanPayload<ExtArgs> | null
       Attendance: Prisma.$AttendancePayload<ExtArgs>[]
+      plan: Prisma.$PlanPayload<ExtArgs>
       Pay: Prisma.$PayPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -4114,9 +4114,9 @@ export namespace Prisma {
   export interface Prisma__MemberClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    plan<T extends Member$planArgs<ExtArgs> = {}>(args?: Subset<T, Member$planArgs<ExtArgs>>): Prisma__PlanClient<$Result.GetResult<Prisma.$PlanPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
-
     Attendance<T extends Member$AttendanceArgs<ExtArgs> = {}>(args?: Subset<T, Member$AttendanceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    plan<T extends PlanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlanDefaultArgs<ExtArgs>>): Prisma__PlanClient<$Result.GetResult<Prisma.$PlanPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
     Pay<T extends Member$PayArgs<ExtArgs> = {}>(args?: Subset<T, Member$PayArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayPayload<ExtArgs>, T, 'findMany'> | Null>;
 
@@ -4479,21 +4479,6 @@ export namespace Prisma {
      * Filter which Members to delete
      */
     where?: MemberWhereInput
-  }
-
-  /**
-   * Member.plan
-   */
-  export type Member$planArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Plan
-     */
-    select?: PlanSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PlanInclude<ExtArgs> | null
-    where?: PlanWhereInput
   }
 
   /**
@@ -7870,8 +7855,8 @@ export namespace Prisma {
     planId?: IntFilter<"Member"> | number
     createdAt?: DateTimeFilter<"Member"> | Date | string
     updatedAt?: DateTimeNullableFilter<"Member"> | Date | string | null
-    plan?: XOR<PlanNullableRelationFilter, PlanWhereInput> | null
     Attendance?: AttendanceListRelationFilter
+    plan?: XOR<PlanRelationFilter, PlanWhereInput>
     Pay?: PayListRelationFilter
   }
 
@@ -7892,8 +7877,8 @@ export namespace Prisma {
     planId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrderInput | SortOrder
-    plan?: PlanOrderByWithRelationInput
     Attendance?: AttendanceOrderByRelationAggregateInput
+    plan?: PlanOrderByWithRelationInput
     Pay?: PayOrderByRelationAggregateInput
   }
 
@@ -7917,8 +7902,8 @@ export namespace Prisma {
     planId?: IntFilter<"Member"> | number
     createdAt?: DateTimeFilter<"Member"> | Date | string
     updatedAt?: DateTimeNullableFilter<"Member"> | Date | string | null
-    plan?: XOR<PlanNullableRelationFilter, PlanWhereInput> | null
     Attendance?: AttendanceListRelationFilter
+    plan?: XOR<PlanRelationFilter, PlanWhereInput>
     Pay?: PayListRelationFilter
   }, "id" | "email">
 
@@ -8302,8 +8287,8 @@ export namespace Prisma {
     estado?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
-    plan?: PlanCreateNestedOneWithoutMemberInput
     Attendance?: AttendanceCreateNestedManyWithoutMiembroInput
+    plan?: PlanCreateNestedOneWithoutMemberInput
     Pay?: PayCreateNestedManyWithoutMiembroInput
   }
 
@@ -8343,8 +8328,8 @@ export namespace Prisma {
     estado?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    plan?: PlanUpdateOneWithoutMemberNestedInput
     Attendance?: AttendanceUpdateManyWithoutMiembroNestedInput
+    plan?: PlanUpdateOneRequiredWithoutMemberNestedInput
     Pay?: PayUpdateManyWithoutMiembroNestedInput
   }
 
@@ -8843,15 +8828,15 @@ export namespace Prisma {
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
-  export type PlanNullableRelationFilter = {
-    is?: PlanWhereInput | null
-    isNot?: PlanWhereInput | null
-  }
-
   export type AttendanceListRelationFilter = {
     every?: AttendanceWhereInput
     some?: AttendanceWhereInput
     none?: AttendanceWhereInput
+  }
+
+  export type PlanRelationFilter = {
+    is?: PlanWhereInput
+    isNot?: PlanWhereInput
   }
 
   export type PayListRelationFilter = {
@@ -9147,17 +9132,17 @@ export namespace Prisma {
     deleteMany?: MemberScalarWhereInput | MemberScalarWhereInput[]
   }
 
-  export type PlanCreateNestedOneWithoutMemberInput = {
-    create?: XOR<PlanCreateWithoutMemberInput, PlanUncheckedCreateWithoutMemberInput>
-    connectOrCreate?: PlanCreateOrConnectWithoutMemberInput
-    connect?: PlanWhereUniqueInput
-  }
-
   export type AttendanceCreateNestedManyWithoutMiembroInput = {
     create?: XOR<AttendanceCreateWithoutMiembroInput, AttendanceUncheckedCreateWithoutMiembroInput> | AttendanceCreateWithoutMiembroInput[] | AttendanceUncheckedCreateWithoutMiembroInput[]
     connectOrCreate?: AttendanceCreateOrConnectWithoutMiembroInput | AttendanceCreateOrConnectWithoutMiembroInput[]
     createMany?: AttendanceCreateManyMiembroInputEnvelope
     connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+  }
+
+  export type PlanCreateNestedOneWithoutMemberInput = {
+    create?: XOR<PlanCreateWithoutMemberInput, PlanUncheckedCreateWithoutMemberInput>
+    connectOrCreate?: PlanCreateOrConnectWithoutMemberInput
+    connect?: PlanWhereUniqueInput
   }
 
   export type PayCreateNestedManyWithoutMiembroInput = {
@@ -9185,16 +9170,6 @@ export namespace Prisma {
     set?: boolean | null
   }
 
-  export type PlanUpdateOneWithoutMemberNestedInput = {
-    create?: XOR<PlanCreateWithoutMemberInput, PlanUncheckedCreateWithoutMemberInput>
-    connectOrCreate?: PlanCreateOrConnectWithoutMemberInput
-    upsert?: PlanUpsertWithoutMemberInput
-    disconnect?: PlanWhereInput | boolean
-    delete?: PlanWhereInput | boolean
-    connect?: PlanWhereUniqueInput
-    update?: XOR<XOR<PlanUpdateToOneWithWhereWithoutMemberInput, PlanUpdateWithoutMemberInput>, PlanUncheckedUpdateWithoutMemberInput>
-  }
-
   export type AttendanceUpdateManyWithoutMiembroNestedInput = {
     create?: XOR<AttendanceCreateWithoutMiembroInput, AttendanceUncheckedCreateWithoutMiembroInput> | AttendanceCreateWithoutMiembroInput[] | AttendanceUncheckedCreateWithoutMiembroInput[]
     connectOrCreate?: AttendanceCreateOrConnectWithoutMiembroInput | AttendanceCreateOrConnectWithoutMiembroInput[]
@@ -9207,6 +9182,14 @@ export namespace Prisma {
     update?: AttendanceUpdateWithWhereUniqueWithoutMiembroInput | AttendanceUpdateWithWhereUniqueWithoutMiembroInput[]
     updateMany?: AttendanceUpdateManyWithWhereWithoutMiembroInput | AttendanceUpdateManyWithWhereWithoutMiembroInput[]
     deleteMany?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
+  }
+
+  export type PlanUpdateOneRequiredWithoutMemberNestedInput = {
+    create?: XOR<PlanCreateWithoutMemberInput, PlanUncheckedCreateWithoutMemberInput>
+    connectOrCreate?: PlanCreateOrConnectWithoutMemberInput
+    upsert?: PlanUpsertWithoutMemberInput
+    connect?: PlanWhereUniqueInput
+    update?: XOR<XOR<PlanUpdateToOneWithWhereWithoutMemberInput, PlanUpdateWithoutMemberInput>, PlanUncheckedUpdateWithoutMemberInput>
   }
 
   export type PayUpdateManyWithoutMiembroNestedInput = {
@@ -9557,6 +9540,29 @@ export namespace Prisma {
     updatedAt?: DateTimeNullableFilter<"Member"> | Date | string | null
   }
 
+  export type AttendanceCreateWithoutMiembroInput = {
+    fecha: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+  }
+
+  export type AttendanceUncheckedCreateWithoutMiembroInput = {
+    id?: number
+    fecha: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+  }
+
+  export type AttendanceCreateOrConnectWithoutMiembroInput = {
+    where: AttendanceWhereUniqueInput
+    create: XOR<AttendanceCreateWithoutMiembroInput, AttendanceUncheckedCreateWithoutMiembroInput>
+  }
+
+  export type AttendanceCreateManyMiembroInputEnvelope = {
+    data: AttendanceCreateManyMiembroInput | AttendanceCreateManyMiembroInput[]
+    skipDuplicates?: boolean
+  }
+
   export type PlanCreateWithoutMemberInput = {
     nombre: string
     descripcion: string
@@ -9581,29 +9587,6 @@ export namespace Prisma {
     create: XOR<PlanCreateWithoutMemberInput, PlanUncheckedCreateWithoutMemberInput>
   }
 
-  export type AttendanceCreateWithoutMiembroInput = {
-    fecha: Date | string
-    createdAt?: Date | string
-    updatedAt?: Date | string | null
-  }
-
-  export type AttendanceUncheckedCreateWithoutMiembroInput = {
-    id?: number
-    fecha: Date | string
-    createdAt?: Date | string
-    updatedAt?: Date | string | null
-  }
-
-  export type AttendanceCreateOrConnectWithoutMiembroInput = {
-    where: AttendanceWhereUniqueInput
-    create: XOR<AttendanceCreateWithoutMiembroInput, AttendanceUncheckedCreateWithoutMiembroInput>
-  }
-
-  export type AttendanceCreateManyMiembroInputEnvelope = {
-    data: AttendanceCreateManyMiembroInput | AttendanceCreateManyMiembroInput[]
-    skipDuplicates?: boolean
-  }
-
   export type PayCreateWithoutMiembroInput = {
     fecha: Date | string
     createdAt?: Date | string
@@ -9625,6 +9608,33 @@ export namespace Prisma {
   export type PayCreateManyMiembroInputEnvelope = {
     data: PayCreateManyMiembroInput | PayCreateManyMiembroInput[]
     skipDuplicates?: boolean
+  }
+
+  export type AttendanceUpsertWithWhereUniqueWithoutMiembroInput = {
+    where: AttendanceWhereUniqueInput
+    update: XOR<AttendanceUpdateWithoutMiembroInput, AttendanceUncheckedUpdateWithoutMiembroInput>
+    create: XOR<AttendanceCreateWithoutMiembroInput, AttendanceUncheckedCreateWithoutMiembroInput>
+  }
+
+  export type AttendanceUpdateWithWhereUniqueWithoutMiembroInput = {
+    where: AttendanceWhereUniqueInput
+    data: XOR<AttendanceUpdateWithoutMiembroInput, AttendanceUncheckedUpdateWithoutMiembroInput>
+  }
+
+  export type AttendanceUpdateManyWithWhereWithoutMiembroInput = {
+    where: AttendanceScalarWhereInput
+    data: XOR<AttendanceUpdateManyMutationInput, AttendanceUncheckedUpdateManyWithoutMiembroInput>
+  }
+
+  export type AttendanceScalarWhereInput = {
+    AND?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
+    OR?: AttendanceScalarWhereInput[]
+    NOT?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
+    id?: IntFilter<"Attendance"> | number
+    fecha?: DateTimeFilter<"Attendance"> | Date | string
+    miembroId?: IntFilter<"Attendance"> | number
+    createdAt?: DateTimeFilter<"Attendance"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"Attendance"> | Date | string | null
   }
 
   export type PlanUpsertWithoutMemberInput = {
@@ -9655,33 +9665,6 @@ export namespace Prisma {
     duracion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type AttendanceUpsertWithWhereUniqueWithoutMiembroInput = {
-    where: AttendanceWhereUniqueInput
-    update: XOR<AttendanceUpdateWithoutMiembroInput, AttendanceUncheckedUpdateWithoutMiembroInput>
-    create: XOR<AttendanceCreateWithoutMiembroInput, AttendanceUncheckedCreateWithoutMiembroInput>
-  }
-
-  export type AttendanceUpdateWithWhereUniqueWithoutMiembroInput = {
-    where: AttendanceWhereUniqueInput
-    data: XOR<AttendanceUpdateWithoutMiembroInput, AttendanceUncheckedUpdateWithoutMiembroInput>
-  }
-
-  export type AttendanceUpdateManyWithWhereWithoutMiembroInput = {
-    where: AttendanceScalarWhereInput
-    data: XOR<AttendanceUpdateManyMutationInput, AttendanceUncheckedUpdateManyWithoutMiembroInput>
-  }
-
-  export type AttendanceScalarWhereInput = {
-    AND?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
-    OR?: AttendanceScalarWhereInput[]
-    NOT?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
-    id?: IntFilter<"Attendance"> | number
-    fecha?: DateTimeFilter<"Attendance"> | Date | string
-    miembroId?: IntFilter<"Attendance"> | number
-    createdAt?: DateTimeFilter<"Attendance"> | Date | string
-    updatedAt?: DateTimeNullableFilter<"Attendance"> | Date | string | null
   }
 
   export type PayUpsertWithWhereUniqueWithoutMiembroInput = {
@@ -9781,7 +9764,7 @@ export namespace Prisma {
     estado?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    plan?: PlanUpdateOneWithoutMemberNestedInput
+    plan?: PlanUpdateOneRequiredWithoutMemberNestedInput
     Pay?: PayUpdateManyWithoutMiembroNestedInput
   }
 
@@ -9820,8 +9803,8 @@ export namespace Prisma {
     estado?: boolean | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
-    plan?: PlanCreateNestedOneWithoutMemberInput
     Attendance?: AttendanceCreateNestedManyWithoutMiembroInput
+    plan?: PlanCreateNestedOneWithoutMemberInput
   }
 
   export type MemberUncheckedCreateWithoutPayInput = {
@@ -9875,8 +9858,8 @@ export namespace Prisma {
     estado?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    plan?: PlanUpdateOneWithoutMemberNestedInput
     Attendance?: AttendanceUpdateManyWithoutMiembroNestedInput
+    plan?: PlanUpdateOneRequiredWithoutMemberNestedInput
   }
 
   export type MemberUncheckedUpdateWithoutPayInput = {

@@ -1,20 +1,16 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider        = "prisma-client-js"
   output          = "./generated/client"
   previewFeatures = ["postgresqlExtensions"]
-  extensions      = [hstore(schema: "myHstoreSchema"), pg_trgm, postgis(version: "2.1")]
+  extensions      = ["(function)", "pg_trgm", "(function)"]
 }
 
 datasource db {
   provider   = "postgresql"
-  //url       = env("DATABASE_URL")
-  url        = env("POSTGRES_URL_NO_SSL")
-  //url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl  = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
-  extensions = [uuidOssp(map: "uuid-ossp")]
+  //url        = env("DATABASE_URL")
+  url        = env("POSTGRES_PRISMA_URL")
+  directUrl  = env("POSTGRES_URL_NON_POOLING")
+  extensions = [uuid_ossp(map: "uuid-ossp")]
 }
 
 model Crossfit {
@@ -31,7 +27,7 @@ model Plan {
   nombre      String    @unique @db.VarChar(50)
   descripcion String    @db.VarChar(255)
   valor       Decimal   @db.Decimal(5, 2)
-  duracion    Int       @db.Integer
+  duracion    Int
   createdAt   DateTime  @default(now())
   updatedAt   DateTime? @updatedAt
   Member      Member[]
@@ -50,31 +46,31 @@ model Member {
   direccion          String       @db.VarChar(255)
   nacionalidad       String       @db.VarChar(50)
   fechaInscripcion   DateTime     @default(now())
-  estado             Boolean?     @default(true) @db.Boolean()
-  plan               Plan?        @relation(fields: [planId], references: [id])
+  estado             Boolean?     @default(true)
   planId             Int          @default(1)
   createdAt          DateTime     @default(now())
   updatedAt          DateTime?    @updatedAt
   Attendance         Attendance[]
+  plan               Plan         @relation(fields: [planId], references: [id])
   Pay                Pay[]
 }
 
 model Attendance {
   id        Int       @id @default(autoincrement())
-  fecha     DateTime  @db.Timestamp()
-  miembro   Member    @relation(fields: [miembroId], references: [id])
+  fecha     DateTime  @db.Timestamp(6)
   miembroId Int
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
+  miembro   Member    @relation(fields: [miembroId], references: [id])
 }
 
 model Pay {
   id        Int       @id @default(autoincrement())
   fecha     DateTime  @db.Date
-  miembro   Member    @relation(fields: [miembroId], references: [id])
   miembroId Int
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
+  miembro   Member    @relation(fields: [miembroId], references: [id])
 }
 
 model User {
@@ -83,7 +79,7 @@ model User {
   apellido  String    @db.VarChar(50)
   email     String    @unique @db.VarChar(100)
   password  String    @db.VarChar(255)
-  estado    Boolean?  @default(true) @db.Boolean()
+  estado    Boolean?  @default(true)
   rol       Role      @default(USER)
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
