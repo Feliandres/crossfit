@@ -48,7 +48,23 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * Enums
  */
 export namespace $Enums {
-  export const Role: {
+  export const Genero: {
+  M: 'M',
+  F: 'F'
+};
+
+export type Genero = (typeof Genero)[keyof typeof Genero]
+
+
+export const Nacionalidad: {
+  Ecuatoriano: 'Ecuatoriano',
+  Extranjero: 'Extranjero'
+};
+
+export type Nacionalidad = (typeof Nacionalidad)[keyof typeof Nacionalidad]
+
+
+export const Role: {
   USER: 'USER',
   ADMIN: 'ADMIN',
   TRAINER: 'TRAINER'
@@ -57,6 +73,14 @@ export namespace $Enums {
 export type Role = (typeof Role)[keyof typeof Role]
 
 }
+
+export type Genero = $Enums.Genero
+
+export const Genero: typeof $Enums.Genero
+
+export type Nacionalidad = $Enums.Nacionalidad
+
+export const Nacionalidad: typeof $Enums.Nacionalidad
 
 export type Role = $Enums.Role
 
@@ -2369,6 +2393,7 @@ export namespace Prisma {
     descripcion: string | null
     valor: Decimal | null
     duracion: number | null
+    estado: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2379,6 +2404,7 @@ export namespace Prisma {
     descripcion: string | null
     valor: Decimal | null
     duracion: number | null
+    estado: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2389,6 +2415,7 @@ export namespace Prisma {
     descripcion: number
     valor: number
     duracion: number
+    estado: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2413,6 +2440,7 @@ export namespace Prisma {
     descripcion?: true
     valor?: true
     duracion?: true
+    estado?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2423,6 +2451,7 @@ export namespace Prisma {
     descripcion?: true
     valor?: true
     duracion?: true
+    estado?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2433,6 +2462,7 @@ export namespace Prisma {
     descripcion?: true
     valor?: true
     duracion?: true
+    estado?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2530,6 +2560,7 @@ export namespace Prisma {
     descripcion: string
     valor: Decimal
     duracion: number
+    estado: boolean
     createdAt: Date
     updatedAt: Date | null
     _count: PlanCountAggregateOutputType | null
@@ -2559,6 +2590,7 @@ export namespace Prisma {
     descripcion?: boolean
     valor?: boolean
     duracion?: boolean
+    estado?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     Member?: boolean | Plan$MemberArgs<ExtArgs>
@@ -2571,6 +2603,7 @@ export namespace Prisma {
     descripcion?: boolean
     valor?: boolean
     duracion?: boolean
+    estado?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -2593,6 +2626,7 @@ export namespace Prisma {
       descripcion: string
       valor: Prisma.Decimal
       duracion: number
+      estado: boolean
       createdAt: Date
       updatedAt: Date | null
     }, ExtArgs["result"]["plan"]>
@@ -3021,6 +3055,7 @@ export namespace Prisma {
     readonly descripcion: FieldRef<"Plan", 'String'>
     readonly valor: FieldRef<"Plan", 'Decimal'>
     readonly duracion: FieldRef<"Plan", 'Int'>
+    readonly estado: FieldRef<"Plan", 'Boolean'>
     readonly createdAt: FieldRef<"Plan", 'DateTime'>
     readonly updatedAt: FieldRef<"Plan", 'DateTime'>
   }
@@ -3406,9 +3441,9 @@ export namespace Prisma {
     telefono: string | null
     telefonoEmergencia: string | null
     fechaNacimiento: Date | null
-    sexo: string | null
+    sexo: $Enums.Genero | null
     direccion: string | null
-    nacionalidad: string | null
+    nacionalidad: $Enums.Nacionalidad | null
     fechaInscripcion: Date | null
     estado: boolean | null
     planId: number | null
@@ -3425,9 +3460,9 @@ export namespace Prisma {
     telefono: string | null
     telefonoEmergencia: string | null
     fechaNacimiento: Date | null
-    sexo: string | null
+    sexo: $Enums.Genero | null
     direccion: string | null
-    nacionalidad: string | null
+    nacionalidad: $Enums.Nacionalidad | null
     fechaInscripcion: Date | null
     estado: boolean | null
     planId: number | null
@@ -3619,9 +3654,9 @@ export namespace Prisma {
     telefono: string
     telefonoEmergencia: string
     fechaNacimiento: Date
-    sexo: string
+    sexo: $Enums.Genero
     direccion: string
-    nacionalidad: string
+    nacionalidad: $Enums.Nacionalidad
     fechaInscripcion: Date
     estado: boolean | null
     planId: number
@@ -3715,9 +3750,9 @@ export namespace Prisma {
       telefono: string
       telefonoEmergencia: string
       fechaNacimiento: Date
-      sexo: string
+      sexo: $Enums.Genero
       direccion: string
-      nacionalidad: string
+      nacionalidad: $Enums.Nacionalidad
       fechaInscripcion: Date
       estado: boolean | null
       planId: number
@@ -4156,9 +4191,9 @@ export namespace Prisma {
     readonly telefono: FieldRef<"Member", 'String'>
     readonly telefonoEmergencia: FieldRef<"Member", 'String'>
     readonly fechaNacimiento: FieldRef<"Member", 'DateTime'>
-    readonly sexo: FieldRef<"Member", 'String'>
+    readonly sexo: FieldRef<"Member", 'Genero'>
     readonly direccion: FieldRef<"Member", 'String'>
-    readonly nacionalidad: FieldRef<"Member", 'String'>
+    readonly nacionalidad: FieldRef<"Member", 'Nacionalidad'>
     readonly fechaInscripcion: FieldRef<"Member", 'DateTime'>
     readonly estado: FieldRef<"Member", 'Boolean'>
     readonly planId: FieldRef<"Member", 'Int'>
@@ -7520,6 +7555,7 @@ export namespace Prisma {
     descripcion: 'descripcion',
     valor: 'valor',
     duracion: 'duracion',
+    estado: 'estado',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -7658,6 +7694,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -7672,9 +7715,30 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
+   * Reference to a field of type 'Genero'
    */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+  export type EnumGeneroFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Genero'>
+    
+
+
+  /**
+   * Reference to a field of type 'Genero[]'
+   */
+  export type ListEnumGeneroFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Genero[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Nacionalidad'
+   */
+  export type EnumNacionalidadFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Nacionalidad'>
+    
+
+
+  /**
+   * Reference to a field of type 'Nacionalidad[]'
+   */
+  export type ListEnumNacionalidadFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Nacionalidad[]'>
     
 
 
@@ -7777,6 +7841,7 @@ export namespace Prisma {
     descripcion?: StringFilter<"Plan"> | string
     valor?: DecimalFilter<"Plan"> | Decimal | DecimalJsLike | number | string
     duracion?: IntFilter<"Plan"> | number
+    estado?: BoolFilter<"Plan"> | boolean
     createdAt?: DateTimeFilter<"Plan"> | Date | string
     updatedAt?: DateTimeNullableFilter<"Plan"> | Date | string | null
     Member?: MemberListRelationFilter
@@ -7788,6 +7853,7 @@ export namespace Prisma {
     descripcion?: SortOrder
     valor?: SortOrder
     duracion?: SortOrder
+    estado?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrderInput | SortOrder
     Member?: MemberOrderByRelationAggregateInput
@@ -7802,6 +7868,7 @@ export namespace Prisma {
     descripcion?: StringFilter<"Plan"> | string
     valor?: DecimalFilter<"Plan"> | Decimal | DecimalJsLike | number | string
     duracion?: IntFilter<"Plan"> | number
+    estado?: BoolFilter<"Plan"> | boolean
     createdAt?: DateTimeFilter<"Plan"> | Date | string
     updatedAt?: DateTimeNullableFilter<"Plan"> | Date | string | null
     Member?: MemberListRelationFilter
@@ -7813,6 +7880,7 @@ export namespace Prisma {
     descripcion?: SortOrder
     valor?: SortOrder
     duracion?: SortOrder
+    estado?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrderInput | SortOrder
     _count?: PlanCountOrderByAggregateInput
@@ -7831,6 +7899,7 @@ export namespace Prisma {
     descripcion?: StringWithAggregatesFilter<"Plan"> | string
     valor?: DecimalWithAggregatesFilter<"Plan"> | Decimal | DecimalJsLike | number | string
     duracion?: IntWithAggregatesFilter<"Plan"> | number
+    estado?: BoolWithAggregatesFilter<"Plan"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Plan"> | Date | string
     updatedAt?: DateTimeNullableWithAggregatesFilter<"Plan"> | Date | string | null
   }
@@ -7847,9 +7916,9 @@ export namespace Prisma {
     telefono?: StringFilter<"Member"> | string
     telefonoEmergencia?: StringFilter<"Member"> | string
     fechaNacimiento?: DateTimeFilter<"Member"> | Date | string
-    sexo?: StringFilter<"Member"> | string
+    sexo?: EnumGeneroFilter<"Member"> | $Enums.Genero
     direccion?: StringFilter<"Member"> | string
-    nacionalidad?: StringFilter<"Member"> | string
+    nacionalidad?: EnumNacionalidadFilter<"Member"> | $Enums.Nacionalidad
     fechaInscripcion?: DateTimeFilter<"Member"> | Date | string
     estado?: BoolNullableFilter<"Member"> | boolean | null
     planId?: IntFilter<"Member"> | number
@@ -7894,9 +7963,9 @@ export namespace Prisma {
     telefono?: StringFilter<"Member"> | string
     telefonoEmergencia?: StringFilter<"Member"> | string
     fechaNacimiento?: DateTimeFilter<"Member"> | Date | string
-    sexo?: StringFilter<"Member"> | string
+    sexo?: EnumGeneroFilter<"Member"> | $Enums.Genero
     direccion?: StringFilter<"Member"> | string
-    nacionalidad?: StringFilter<"Member"> | string
+    nacionalidad?: EnumNacionalidadFilter<"Member"> | $Enums.Nacionalidad
     fechaInscripcion?: DateTimeFilter<"Member"> | Date | string
     estado?: BoolNullableFilter<"Member"> | boolean | null
     planId?: IntFilter<"Member"> | number
@@ -7943,9 +8012,9 @@ export namespace Prisma {
     telefono?: StringWithAggregatesFilter<"Member"> | string
     telefonoEmergencia?: StringWithAggregatesFilter<"Member"> | string
     fechaNacimiento?: DateTimeWithAggregatesFilter<"Member"> | Date | string
-    sexo?: StringWithAggregatesFilter<"Member"> | string
+    sexo?: EnumGeneroWithAggregatesFilter<"Member"> | $Enums.Genero
     direccion?: StringWithAggregatesFilter<"Member"> | string
-    nacionalidad?: StringWithAggregatesFilter<"Member"> | string
+    nacionalidad?: EnumNacionalidadWithAggregatesFilter<"Member"> | $Enums.Nacionalidad
     fechaInscripcion?: DateTimeWithAggregatesFilter<"Member"> | Date | string
     estado?: BoolNullableWithAggregatesFilter<"Member"> | boolean | null
     planId?: IntWithAggregatesFilter<"Member"> | number
@@ -8206,6 +8275,7 @@ export namespace Prisma {
     descripcion: string
     valor: Decimal | DecimalJsLike | number | string
     duracion: number
+    estado?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
     Member?: MemberCreateNestedManyWithoutPlanInput
@@ -8217,6 +8287,7 @@ export namespace Prisma {
     descripcion: string
     valor: Decimal | DecimalJsLike | number | string
     duracion: number
+    estado?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
     Member?: MemberUncheckedCreateNestedManyWithoutPlanInput
@@ -8227,6 +8298,7 @@ export namespace Prisma {
     descripcion?: StringFieldUpdateOperationsInput | string
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     duracion?: IntFieldUpdateOperationsInput | number
+    estado?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Member?: MemberUpdateManyWithoutPlanNestedInput
@@ -8238,6 +8310,7 @@ export namespace Prisma {
     descripcion?: StringFieldUpdateOperationsInput | string
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     duracion?: IntFieldUpdateOperationsInput | number
+    estado?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Member?: MemberUncheckedUpdateManyWithoutPlanNestedInput
@@ -8249,6 +8322,7 @@ export namespace Prisma {
     descripcion: string
     valor: Decimal | DecimalJsLike | number | string
     duracion: number
+    estado?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
   }
@@ -8258,6 +8332,7 @@ export namespace Prisma {
     descripcion?: StringFieldUpdateOperationsInput | string
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     duracion?: IntFieldUpdateOperationsInput | number
+    estado?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -8268,6 +8343,7 @@ export namespace Prisma {
     descripcion?: StringFieldUpdateOperationsInput | string
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     duracion?: IntFieldUpdateOperationsInput | number
+    estado?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -8280,9 +8356,9 @@ export namespace Prisma {
     telefono: string
     telefonoEmergencia: string
     fechaNacimiento: Date | string
-    sexo: string
+    sexo: $Enums.Genero
     direccion: string
-    nacionalidad: string
+    nacionalidad: $Enums.Nacionalidad
     fechaInscripcion?: Date | string
     estado?: boolean | null
     createdAt?: Date | string
@@ -8301,9 +8377,9 @@ export namespace Prisma {
     telefono: string
     telefonoEmergencia: string
     fechaNacimiento: Date | string
-    sexo: string
+    sexo: $Enums.Genero
     direccion: string
-    nacionalidad: string
+    nacionalidad: $Enums.Nacionalidad
     fechaInscripcion?: Date | string
     estado?: boolean | null
     planId?: number
@@ -8321,9 +8397,9 @@ export namespace Prisma {
     telefono?: StringFieldUpdateOperationsInput | string
     telefonoEmergencia?: StringFieldUpdateOperationsInput | string
     fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
-    sexo?: StringFieldUpdateOperationsInput | string
+    sexo?: EnumGeneroFieldUpdateOperationsInput | $Enums.Genero
     direccion?: StringFieldUpdateOperationsInput | string
-    nacionalidad?: StringFieldUpdateOperationsInput | string
+    nacionalidad?: EnumNacionalidadFieldUpdateOperationsInput | $Enums.Nacionalidad
     fechaInscripcion?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8342,9 +8418,9 @@ export namespace Prisma {
     telefono?: StringFieldUpdateOperationsInput | string
     telefonoEmergencia?: StringFieldUpdateOperationsInput | string
     fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
-    sexo?: StringFieldUpdateOperationsInput | string
+    sexo?: EnumGeneroFieldUpdateOperationsInput | $Enums.Genero
     direccion?: StringFieldUpdateOperationsInput | string
-    nacionalidad?: StringFieldUpdateOperationsInput | string
+    nacionalidad?: EnumNacionalidadFieldUpdateOperationsInput | $Enums.Nacionalidad
     fechaInscripcion?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: NullableBoolFieldUpdateOperationsInput | boolean | null
     planId?: IntFieldUpdateOperationsInput | number
@@ -8363,9 +8439,9 @@ export namespace Prisma {
     telefono: string
     telefonoEmergencia: string
     fechaNacimiento: Date | string
-    sexo: string
+    sexo: $Enums.Genero
     direccion: string
-    nacionalidad: string
+    nacionalidad: $Enums.Nacionalidad
     fechaInscripcion?: Date | string
     estado?: boolean | null
     planId?: number
@@ -8381,9 +8457,9 @@ export namespace Prisma {
     telefono?: StringFieldUpdateOperationsInput | string
     telefonoEmergencia?: StringFieldUpdateOperationsInput | string
     fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
-    sexo?: StringFieldUpdateOperationsInput | string
+    sexo?: EnumGeneroFieldUpdateOperationsInput | $Enums.Genero
     direccion?: StringFieldUpdateOperationsInput | string
-    nacionalidad?: StringFieldUpdateOperationsInput | string
+    nacionalidad?: EnumNacionalidadFieldUpdateOperationsInput | $Enums.Nacionalidad
     fechaInscripcion?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8399,9 +8475,9 @@ export namespace Prisma {
     telefono?: StringFieldUpdateOperationsInput | string
     telefonoEmergencia?: StringFieldUpdateOperationsInput | string
     fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
-    sexo?: StringFieldUpdateOperationsInput | string
+    sexo?: EnumGeneroFieldUpdateOperationsInput | $Enums.Genero
     direccion?: StringFieldUpdateOperationsInput | string
-    nacionalidad?: StringFieldUpdateOperationsInput | string
+    nacionalidad?: EnumNacionalidadFieldUpdateOperationsInput | $Enums.Nacionalidad
     fechaInscripcion?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: NullableBoolFieldUpdateOperationsInput | boolean | null
     planId?: IntFieldUpdateOperationsInput | number
@@ -8700,6 +8776,11 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -8743,6 +8824,7 @@ export namespace Prisma {
     descripcion?: SortOrder
     valor?: SortOrder
     duracion?: SortOrder
+    estado?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8759,6 +8841,7 @@ export namespace Prisma {
     descripcion?: SortOrder
     valor?: SortOrder
     duracion?: SortOrder
+    estado?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8769,6 +8852,7 @@ export namespace Prisma {
     descripcion?: SortOrder
     valor?: SortOrder
     duracion?: SortOrder
+    estado?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8793,6 +8877,14 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -8821,6 +8913,20 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumGeneroFilter<$PrismaModel = never> = {
+    equals?: $Enums.Genero | EnumGeneroFieldRefInput<$PrismaModel>
+    in?: $Enums.Genero[] | ListEnumGeneroFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Genero[] | ListEnumGeneroFieldRefInput<$PrismaModel>
+    not?: NestedEnumGeneroFilter<$PrismaModel> | $Enums.Genero
+  }
+
+  export type EnumNacionalidadFilter<$PrismaModel = never> = {
+    equals?: $Enums.Nacionalidad | EnumNacionalidadFieldRefInput<$PrismaModel>
+    in?: $Enums.Nacionalidad[] | ListEnumNacionalidadFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Nacionalidad[] | ListEnumNacionalidadFieldRefInput<$PrismaModel>
+    not?: NestedEnumNacionalidadFilter<$PrismaModel> | $Enums.Nacionalidad
   }
 
   export type BoolNullableFilter<$PrismaModel = never> = {
@@ -8918,6 +9024,26 @@ export namespace Prisma {
   export type MemberSumOrderByAggregateInput = {
     id?: SortOrder
     planId?: SortOrder
+  }
+
+  export type EnumGeneroWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Genero | EnumGeneroFieldRefInput<$PrismaModel>
+    in?: $Enums.Genero[] | ListEnumGeneroFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Genero[] | ListEnumGeneroFieldRefInput<$PrismaModel>
+    not?: NestedEnumGeneroWithAggregatesFilter<$PrismaModel> | $Enums.Genero
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGeneroFilter<$PrismaModel>
+    _max?: NestedEnumGeneroFilter<$PrismaModel>
+  }
+
+  export type EnumNacionalidadWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Nacionalidad | EnumNacionalidadFieldRefInput<$PrismaModel>
+    in?: $Enums.Nacionalidad[] | ListEnumNacionalidadFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Nacionalidad[] | ListEnumNacionalidadFieldRefInput<$PrismaModel>
+    not?: NestedEnumNacionalidadWithAggregatesFilter<$PrismaModel> | $Enums.Nacionalidad
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumNacionalidadFilter<$PrismaModel>
+    _max?: NestedEnumNacionalidadFilter<$PrismaModel>
   }
 
   export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -9096,6 +9222,10 @@ export namespace Prisma {
     divide?: Decimal | DecimalJsLike | number | string
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -9164,6 +9294,14 @@ export namespace Prisma {
     connectOrCreate?: PayCreateOrConnectWithoutMiembroInput | PayCreateOrConnectWithoutMiembroInput[]
     createMany?: PayCreateManyMiembroInputEnvelope
     connect?: PayWhereUniqueInput | PayWhereUniqueInput[]
+  }
+
+  export type EnumGeneroFieldUpdateOperationsInput = {
+    set?: $Enums.Genero
+  }
+
+  export type EnumNacionalidadFieldUpdateOperationsInput = {
+    set?: $Enums.Nacionalidad
   }
 
   export type NullableBoolFieldUpdateOperationsInput = {
@@ -9346,6 +9484,11 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -9382,6 +9525,14 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -9423,9 +9574,43 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedEnumGeneroFilter<$PrismaModel = never> = {
+    equals?: $Enums.Genero | EnumGeneroFieldRefInput<$PrismaModel>
+    in?: $Enums.Genero[] | ListEnumGeneroFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Genero[] | ListEnumGeneroFieldRefInput<$PrismaModel>
+    not?: NestedEnumGeneroFilter<$PrismaModel> | $Enums.Genero
+  }
+
+  export type NestedEnumNacionalidadFilter<$PrismaModel = never> = {
+    equals?: $Enums.Nacionalidad | EnumNacionalidadFieldRefInput<$PrismaModel>
+    in?: $Enums.Nacionalidad[] | ListEnumNacionalidadFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Nacionalidad[] | ListEnumNacionalidadFieldRefInput<$PrismaModel>
+    not?: NestedEnumNacionalidadFilter<$PrismaModel> | $Enums.Nacionalidad
+  }
+
   export type NestedBoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type NestedEnumGeneroWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Genero | EnumGeneroFieldRefInput<$PrismaModel>
+    in?: $Enums.Genero[] | ListEnumGeneroFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Genero[] | ListEnumGeneroFieldRefInput<$PrismaModel>
+    not?: NestedEnumGeneroWithAggregatesFilter<$PrismaModel> | $Enums.Genero
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGeneroFilter<$PrismaModel>
+    _max?: NestedEnumGeneroFilter<$PrismaModel>
+  }
+
+  export type NestedEnumNacionalidadWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Nacionalidad | EnumNacionalidadFieldRefInput<$PrismaModel>
+    in?: $Enums.Nacionalidad[] | ListEnumNacionalidadFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Nacionalidad[] | ListEnumNacionalidadFieldRefInput<$PrismaModel>
+    not?: NestedEnumNacionalidadWithAggregatesFilter<$PrismaModel> | $Enums.Nacionalidad
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumNacionalidadFilter<$PrismaModel>
+    _max?: NestedEnumNacionalidadFilter<$PrismaModel>
   }
 
   export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -9461,9 +9646,9 @@ export namespace Prisma {
     telefono: string
     telefonoEmergencia: string
     fechaNacimiento: Date | string
-    sexo: string
+    sexo: $Enums.Genero
     direccion: string
-    nacionalidad: string
+    nacionalidad: $Enums.Nacionalidad
     fechaInscripcion?: Date | string
     estado?: boolean | null
     createdAt?: Date | string
@@ -9481,9 +9666,9 @@ export namespace Prisma {
     telefono: string
     telefonoEmergencia: string
     fechaNacimiento: Date | string
-    sexo: string
+    sexo: $Enums.Genero
     direccion: string
-    nacionalidad: string
+    nacionalidad: $Enums.Nacionalidad
     fechaInscripcion?: Date | string
     estado?: boolean | null
     createdAt?: Date | string
@@ -9530,9 +9715,9 @@ export namespace Prisma {
     telefono?: StringFilter<"Member"> | string
     telefonoEmergencia?: StringFilter<"Member"> | string
     fechaNacimiento?: DateTimeFilter<"Member"> | Date | string
-    sexo?: StringFilter<"Member"> | string
+    sexo?: EnumGeneroFilter<"Member"> | $Enums.Genero
     direccion?: StringFilter<"Member"> | string
-    nacionalidad?: StringFilter<"Member"> | string
+    nacionalidad?: EnumNacionalidadFilter<"Member"> | $Enums.Nacionalidad
     fechaInscripcion?: DateTimeFilter<"Member"> | Date | string
     estado?: BoolNullableFilter<"Member"> | boolean | null
     planId?: IntFilter<"Member"> | number
@@ -9568,6 +9753,7 @@ export namespace Prisma {
     descripcion: string
     valor: Decimal | DecimalJsLike | number | string
     duracion: number
+    estado?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
   }
@@ -9578,6 +9764,7 @@ export namespace Prisma {
     descripcion: string
     valor: Decimal | DecimalJsLike | number | string
     duracion: number
+    estado?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
   }
@@ -9653,6 +9840,7 @@ export namespace Prisma {
     descripcion?: StringFieldUpdateOperationsInput | string
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     duracion?: IntFieldUpdateOperationsInput | number
+    estado?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -9663,6 +9851,7 @@ export namespace Prisma {
     descripcion?: StringFieldUpdateOperationsInput | string
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     duracion?: IntFieldUpdateOperationsInput | number
+    estado?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -9702,9 +9891,9 @@ export namespace Prisma {
     telefono: string
     telefonoEmergencia: string
     fechaNacimiento: Date | string
-    sexo: string
+    sexo: $Enums.Genero
     direccion: string
-    nacionalidad: string
+    nacionalidad: $Enums.Nacionalidad
     fechaInscripcion?: Date | string
     estado?: boolean | null
     createdAt?: Date | string
@@ -9722,9 +9911,9 @@ export namespace Prisma {
     telefono: string
     telefonoEmergencia: string
     fechaNacimiento: Date | string
-    sexo: string
+    sexo: $Enums.Genero
     direccion: string
-    nacionalidad: string
+    nacionalidad: $Enums.Nacionalidad
     fechaInscripcion?: Date | string
     estado?: boolean | null
     planId?: number
@@ -9757,9 +9946,9 @@ export namespace Prisma {
     telefono?: StringFieldUpdateOperationsInput | string
     telefonoEmergencia?: StringFieldUpdateOperationsInput | string
     fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
-    sexo?: StringFieldUpdateOperationsInput | string
+    sexo?: EnumGeneroFieldUpdateOperationsInput | $Enums.Genero
     direccion?: StringFieldUpdateOperationsInput | string
-    nacionalidad?: StringFieldUpdateOperationsInput | string
+    nacionalidad?: EnumNacionalidadFieldUpdateOperationsInput | $Enums.Nacionalidad
     fechaInscripcion?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9777,9 +9966,9 @@ export namespace Prisma {
     telefono?: StringFieldUpdateOperationsInput | string
     telefonoEmergencia?: StringFieldUpdateOperationsInput | string
     fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
-    sexo?: StringFieldUpdateOperationsInput | string
+    sexo?: EnumGeneroFieldUpdateOperationsInput | $Enums.Genero
     direccion?: StringFieldUpdateOperationsInput | string
-    nacionalidad?: StringFieldUpdateOperationsInput | string
+    nacionalidad?: EnumNacionalidadFieldUpdateOperationsInput | $Enums.Nacionalidad
     fechaInscripcion?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: NullableBoolFieldUpdateOperationsInput | boolean | null
     planId?: IntFieldUpdateOperationsInput | number
@@ -9796,9 +9985,9 @@ export namespace Prisma {
     telefono: string
     telefonoEmergencia: string
     fechaNacimiento: Date | string
-    sexo: string
+    sexo: $Enums.Genero
     direccion: string
-    nacionalidad: string
+    nacionalidad: $Enums.Nacionalidad
     fechaInscripcion?: Date | string
     estado?: boolean | null
     createdAt?: Date | string
@@ -9816,9 +10005,9 @@ export namespace Prisma {
     telefono: string
     telefonoEmergencia: string
     fechaNacimiento: Date | string
-    sexo: string
+    sexo: $Enums.Genero
     direccion: string
-    nacionalidad: string
+    nacionalidad: $Enums.Nacionalidad
     fechaInscripcion?: Date | string
     estado?: boolean | null
     planId?: number
@@ -9851,9 +10040,9 @@ export namespace Prisma {
     telefono?: StringFieldUpdateOperationsInput | string
     telefonoEmergencia?: StringFieldUpdateOperationsInput | string
     fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
-    sexo?: StringFieldUpdateOperationsInput | string
+    sexo?: EnumGeneroFieldUpdateOperationsInput | $Enums.Genero
     direccion?: StringFieldUpdateOperationsInput | string
-    nacionalidad?: StringFieldUpdateOperationsInput | string
+    nacionalidad?: EnumNacionalidadFieldUpdateOperationsInput | $Enums.Nacionalidad
     fechaInscripcion?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9871,9 +10060,9 @@ export namespace Prisma {
     telefono?: StringFieldUpdateOperationsInput | string
     telefonoEmergencia?: StringFieldUpdateOperationsInput | string
     fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
-    sexo?: StringFieldUpdateOperationsInput | string
+    sexo?: EnumGeneroFieldUpdateOperationsInput | $Enums.Genero
     direccion?: StringFieldUpdateOperationsInput | string
-    nacionalidad?: StringFieldUpdateOperationsInput | string
+    nacionalidad?: EnumNacionalidadFieldUpdateOperationsInput | $Enums.Nacionalidad
     fechaInscripcion?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: NullableBoolFieldUpdateOperationsInput | boolean | null
     planId?: IntFieldUpdateOperationsInput | number
@@ -9891,9 +10080,9 @@ export namespace Prisma {
     telefono: string
     telefonoEmergencia: string
     fechaNacimiento: Date | string
-    sexo: string
+    sexo: $Enums.Genero
     direccion: string
-    nacionalidad: string
+    nacionalidad: $Enums.Nacionalidad
     fechaInscripcion?: Date | string
     estado?: boolean | null
     createdAt?: Date | string
@@ -9908,9 +10097,9 @@ export namespace Prisma {
     telefono?: StringFieldUpdateOperationsInput | string
     telefonoEmergencia?: StringFieldUpdateOperationsInput | string
     fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
-    sexo?: StringFieldUpdateOperationsInput | string
+    sexo?: EnumGeneroFieldUpdateOperationsInput | $Enums.Genero
     direccion?: StringFieldUpdateOperationsInput | string
-    nacionalidad?: StringFieldUpdateOperationsInput | string
+    nacionalidad?: EnumNacionalidadFieldUpdateOperationsInput | $Enums.Nacionalidad
     fechaInscripcion?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9928,9 +10117,9 @@ export namespace Prisma {
     telefono?: StringFieldUpdateOperationsInput | string
     telefonoEmergencia?: StringFieldUpdateOperationsInput | string
     fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
-    sexo?: StringFieldUpdateOperationsInput | string
+    sexo?: EnumGeneroFieldUpdateOperationsInput | $Enums.Genero
     direccion?: StringFieldUpdateOperationsInput | string
-    nacionalidad?: StringFieldUpdateOperationsInput | string
+    nacionalidad?: EnumNacionalidadFieldUpdateOperationsInput | $Enums.Nacionalidad
     fechaInscripcion?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9948,9 +10137,9 @@ export namespace Prisma {
     telefono?: StringFieldUpdateOperationsInput | string
     telefonoEmergencia?: StringFieldUpdateOperationsInput | string
     fechaNacimiento?: DateTimeFieldUpdateOperationsInput | Date | string
-    sexo?: StringFieldUpdateOperationsInput | string
+    sexo?: EnumGeneroFieldUpdateOperationsInput | $Enums.Genero
     direccion?: StringFieldUpdateOperationsInput | string
-    nacionalidad?: StringFieldUpdateOperationsInput | string
+    nacionalidad?: EnumNacionalidadFieldUpdateOperationsInput | $Enums.Nacionalidad
     fechaInscripcion?: DateTimeFieldUpdateOperationsInput | Date | string
     estado?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

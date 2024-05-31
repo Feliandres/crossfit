@@ -28,6 +28,7 @@ model Plan {
   descripcion String    @db.VarChar(255)
   valor       Decimal   @db.Decimal(5, 2)
   duracion    Int
+  estado      Boolean   @default(true)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime? @updatedAt
   Member      Member[]
@@ -42,9 +43,9 @@ model Member {
   telefono           String       @db.VarChar(20)
   telefonoEmergencia String       @db.VarChar(20)
   fechaNacimiento    DateTime     @db.Date
-  sexo               String       @db.Char(1)
+  sexo               Genero
   direccion          String       @db.VarChar(255)
-  nacionalidad       String       @db.VarChar(50)
+  nacionalidad       Nacionalidad
   fechaInscripcion   DateTime     @default(now())
   estado             Boolean?     @default(true)
   planId             Int          @default(1)
@@ -89,4 +90,14 @@ enum Role {
   USER
   ADMIN
   TRAINER
+}
+
+enum Genero {
+  M
+  F
+}
+
+enum Nacionalidad {
+  Ecuatoriano
+  Extranjero
 }

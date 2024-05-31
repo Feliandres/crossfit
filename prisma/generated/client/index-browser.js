@@ -134,6 +134,7 @@ exports.Prisma.PlanScalarFieldEnum = {
   descripcion: 'descripcion',
   valor: 'valor',
   duracion: 'duracion',
+  estado: 'estado',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -199,6 +200,16 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.Genero = exports.$Enums.Genero = {
+  M: 'M',
+  F: 'F'
+};
+
+exports.Nacionalidad = exports.$Enums.Nacionalidad = {
+  Ecuatoriano: 'Ecuatoriano',
+  Extranjero: 'Extranjero'
+};
+
 exports.Role = exports.$Enums.Role = {
   USER: 'USER',
   ADMIN: 'ADMIN',
