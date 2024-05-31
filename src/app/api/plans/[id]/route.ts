@@ -6,23 +6,41 @@ export async function GET(
     { params }: { params: { id: string } }
 ) {
     try {
-    const id = params.id
-    const getPlan = await prisma.plan.findUnique({
-    where: {
-        id: parseInt(id, 10)
-    }
-    })
-    if (getPlan) {
-        return new NextResponse(JSON.stringify({
-            success: "El plan se ha encontrado con éxito.",
-            data: getPlan,
-        }), { status: 201 });
-    }
+        const id = parseInt(params.id, 10);
 
-    }catch (error) {
+        if (isNaN(id)) {
+            return new NextResponse(
+                JSON.stringify({ error: "ID inválido. Por favor, proporcione un ID válido." }),
+                { status: 400 }
+            );
+        }
+
+        const getPlan = await prisma.plan.findUnique({
+            where: {
+                id: id,
+            },
+        });
+
+        if (getPlan) {
+            return new NextResponse(
+                JSON.stringify({
+                    success: "El plan se ha encontrado con éxito.",
+                    data: getPlan,
+                }),
+                { status: 200 }
+            );
+        } else {
+            return new NextResponse(
+                JSON.stringify({ error: "El plan con el ID proporcionado no existe." }),
+                { status: 404 }
+            );
+        }
+
+    } catch (error) {
+        console.error('Error encontrando el plan:', error);
         return new NextResponse(
-            JSON.stringify({ error: "El plan o ID no se encuentran. Por favor, inténtelo de nuevo.", }),
-            { status: 400 }
+            JSON.stringify({ error: "Ocurrió un error al encontrar el plan. Por favor, inténtelo de nuevo." }),
+            { status: 500 }
         );
     }
 }
@@ -32,33 +50,50 @@ export async function PUT(
     { params }: { params: { id: string } }
 ) {
     try {
-    const id = params.id
-    const json = await request.json()
+        const id = parseInt(params.id, 10);
 
-    const updatePlan = await prisma.plan.update({
-    where: {
-        id: parseInt(id, 10)
-    },
-    data: {
-        nombre: json.nombre,
-        descripcion: json.descripcion,
-        valor: json.valor,
-        duracion: json.duracion,
-        estado: json.estado
-    }
-    })
+        if (isNaN(id)) {
+            return new NextResponse(
+                JSON.stringify({ error: "ID inválido. Por favor, proporcione un ID válido." }),
+                { status: 400 }
+            );
+        }
 
-    if (updatePlan) {
-        return new NextResponse(JSON.stringify({
-            success: "El plan se ha actualizado con éxito.",
-            data: updatePlan,
-        }), { status: 201 });
-    }
+        const json = await request.json();
 
-    }catch (error) {
+        const updatePlan = await prisma.plan.update({
+            where: {
+                id: id
+            },
+            data: {
+                nombre: json.nombre,
+                descripcion: json.descripcion,
+                valor: json.valor,
+                duracion: json.duracion,
+                estado: json.estado
+            }
+        });
+
         return new NextResponse(
-            JSON.stringify({ error: "Verifique todos los campos. Por favor, inténtelo de nuevo.", }),
-            { status: 400 }
+            JSON.stringify({
+                success: "El plan se ha actualizado con éxito.",
+                data: updatePlan,
+            }),
+            { status: 200 }
+        );
+
+    } catch (error) {
+        if (error instanceof prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+            return new NextResponse(
+                JSON.stringify({ error: "El plan con el ID proporcionado no existe." }),
+                { status: 404 }
+            );
+        }
+
+        console.error('Error actualizando el plan:', error);
+        return new NextResponse(
+            JSON.stringify({ error: "Ocurrió un error al actualizar el plan. Por favor, inténtelo de nuevo." }),
+            { status: 500 }
         );
     }
 }
@@ -68,28 +103,44 @@ export async function DELETE(
     { params }: { params: { id: string } }
 ) {
     try {
-    const id = params.id
+        const id = parseInt(params.id, 10);
 
-    const desactivatePlan = await prisma.plan.update({
-    where: {
-        id: parseInt(id, 10)
-    },
-    data: {
-        estado: false
-    }
-    })
+        if (isNaN(id)) {
+            return new NextResponse(
+                JSON.stringify({ error: "ID inválido. Por favor, proporcione un ID válido." }),
+                { status: 400 }
+            );
+        }
 
-    if (desactivatePlan) {
-        return new NextResponse(JSON.stringify({
-            success: "El plan se ha desactivado con éxito.",
-            data: desactivatePlan,
-        }), { status: 201 });
-    }
+        const desactivatePlan = await prisma.plan.update({
+            where: {
+                id: id
+            },
+            data: {
+                estado: false
+            }
+        });
 
-    }catch (error) {
         return new NextResponse(
-            JSON.stringify({ error: "El plan o ID no existen. Por favor, inténtelo de nuevo.", }),
-            { status: 400 }
+            JSON.stringify({
+                success: "El plan se ha desactivado con éxito.",
+                data: desactivatePlan,
+            }),
+            { status: 200 }
+        );
+
+    } catch (error) {
+        if (error instanceof prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+            return new NextResponse(
+                JSON.stringify({ error: "El plan con el ID proporcionado no existe." }),
+                { status: 404 }
+            );
+        }
+
+        console.error('Error desactivando el plan:', error);
+        return new NextResponse(
+            JSON.stringify({ error: "Ocurrió un error al desactivar el plan. Por favor, inténtelo de nuevo." }),
+            { status: 500 }
         );
     }
 }
