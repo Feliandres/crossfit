@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import {prisma} from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 
 export async function GET(
     request: Request,
@@ -83,13 +83,6 @@ export async function PUT(
         );
 
     } catch (error) {
-        if (error instanceof prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
-            return new NextResponse(
-                JSON.stringify({ error: "El plan con el ID proporcionado no existe." }),
-                { status: 404 }
-            );
-        }
-
         console.error('Error actualizando el plan:', error);
         return new NextResponse(
             JSON.stringify({ error: "Ocurrió un error al actualizar el plan. Por favor, inténtelo de nuevo." }),
@@ -130,13 +123,6 @@ export async function DELETE(
         );
 
     } catch (error) {
-        if (error instanceof prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
-            return new NextResponse(
-                JSON.stringify({ error: "El plan con el ID proporcionado no existe." }),
-                { status: 404 }
-            );
-        }
-
         console.error('Error desactivando el plan:', error);
         return new NextResponse(
             JSON.stringify({ error: "Ocurrió un error al desactivar el plan. Por favor, inténtelo de nuevo." }),
