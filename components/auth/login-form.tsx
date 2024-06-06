@@ -4,7 +4,7 @@ import { signIn } from "next-auth/react";
 import { CardWrapper } from "@/components/auth/card-wrapper";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useState, useTransition, Suspense } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { LoginSchema } from "@/schemas";
@@ -113,77 +113,79 @@ export const LoginForm = () => {
     };
 
     return (
-        <CardWrapper
-            headerLabel="Welcome back"
-            backButtonLabel="Don’t have an account?"
-            backButtonHref="/auth/register"
-            showSocial
-        >
-            <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-6"
-                >
-                    <div className="space-y-4">
-                        <FormField
-                            control={form.control}
-                            name="email"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Email</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            {...field}
-                                            disabled={isPending}
-                                            placeholder="john.doe@gmail.com"
-                                            type="email"
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-
-                        <FormField
-                            control={form.control}
-                            name="password"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Password</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            disabled={isPending}
-                                            {...field}
-                                            placeholder="*********"
-                                            type="password"
-                                        />
-                                    </FormControl>
-                                    <Button
-                                        size="sm"
-                                        variant="link"
-                                        asChild
-                                        className="px-0 font-normal"
-                                    >
-                                        <Link href="/auth/reset">
-                                            Forgot password?
-                                        </Link>
-                                    </Button>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-                    <FormError message={error || urlError} />
-                    <FormSuccess message={success} />
-                    <Button
-                        disabled={isPending}
-                        type="submit"
-                        className="w-full"
+        <Suspense fallback={<div>Loading...</div>}>
+            <CardWrapper
+                headerLabel="Welcome back"
+                backButtonLabel="Don’t have an account?"
+                backButtonHref="/auth/register"
+                showSocial
+            >
+                <Form {...form}>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="space-y-6"
                     >
-                        Login
-                    </Button>
-                </form>
-            </Form>
-        </CardWrapper>
+                        <div className="space-y-4">
+                            <FormField
+                                control={form.control}
+                                name="email"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Email</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                {...field}
+                                                disabled={isPending}
+                                                placeholder="john.doe@gmail.com"
+                                                type="email"
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="password"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Password</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                disabled={isPending}
+                                                {...field}
+                                                placeholder="*********"
+                                                type="password"
+                                            />
+                                        </FormControl>
+                                        <Button
+                                            size="sm"
+                                            variant="link"
+                                            asChild
+                                            className="px-0 font-normal"
+                                        >
+                                            <Link href="/auth/reset">
+                                                Forgot password?
+                                            </Link>
+                                        </Button>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+                        <FormError message={error || urlError} />
+                        <FormSuccess message={success} />
+                        <Button
+                            disabled={isPending}
+                            type="submit"
+                            className="w-full"
+                        >
+                            Login
+                        </Button>
+                    </form>
+                </Form>
+            </CardWrapper>
+        </Suspense>
     );
 };

@@ -1,5 +1,5 @@
 "use client";
-import { startTransition, useCallback, useEffect, useState, useRef } from "react";
+import { startTransition, useCallback, useEffect, useState, useRef, Suspense } from "react";
 import { BeatLoader } from "react-spinners";
 import { useSearchParams } from "next/navigation";
 import axios from 'axios';
@@ -66,20 +66,22 @@ export const NewVerificationForm = () => {
     }, [onSubmit]);
 
     return (
-        <CardWrapper
-            headerLabel="Confirming your verification"
-            backButtonLabel="Back to login"
-            backButtonHref="/auth/login"
-        >
-            <div className="flex items-center w-full justify-center">
-                {!success && !error && (
-                    <BeatLoader />
-                )}
-                <FormSuccess message={success} />
-                {!success && (
-                    <FormError message={error} />
-                )}
-            </div>
-        </CardWrapper>
+        <Suspense fallback={<div>Loading...</div>}>
+            <CardWrapper
+                headerLabel="Confirming your verification"
+                backButtonLabel="Back to login"
+                backButtonHref="/auth/login"
+            >
+                <div className="flex items-center w-full justify-center">
+                    {!success && !error && (
+                        <BeatLoader />
+                    )}
+                    <FormSuccess message={success} />
+                    {!success && (
+                        <FormError message={error} />
+                    )}
+                </div>
+            </CardWrapper>
+        </Suspense>
     );
 };

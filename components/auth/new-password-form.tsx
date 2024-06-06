@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState, useTransition } from "react";
+import { useCallback, useState, useTransition, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -77,47 +77,49 @@ export const NewPasswordForm = () => {
     }, [token]);
 
     return (
-        <CardWrapper
-            headerLabel="Enter a new password"
-            backButtonLabel="Back to Login"
-            backButtonHref="/auth/login"
-        >
-            <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-6"
-                >
-                    <div className="space-y-4">
-                        <FormField
-                            control={form.control}
-                            name="password"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Password</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            {...field}
-                                            disabled={isPending}
-                                            placeholder="Enter your new password"
-                                            type="password"
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-                    <FormError message={error} />
-                    <FormSuccess message={success} />
-                    <Button
-                        disabled={isPending}
-                        type="submit"
-                        className="w-full"
+        <Suspense fallback={<div>Loading...</div>}>
+            <CardWrapper
+                headerLabel="Enter a new password"
+                backButtonLabel="Back to Login"
+                backButtonHref="/auth/login"
+            >
+                <Form {...form}>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="space-y-6"
                     >
-                        Update Password
-                    </Button>
-                </form>
-            </Form>
-        </CardWrapper>
+                        <div className="space-y-4">
+                            <FormField
+                                control={form.control}
+                                name="password"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Password</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                {...field}
+                                                disabled={isPending}
+                                                placeholder="Enter your new password"
+                                                type="password"
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+                        <FormError message={error} />
+                        <FormSuccess message={success} />
+                        <Button
+                            disabled={isPending}
+                            type="submit"
+                            className="w-full"
+                        >
+                            Update Password
+                        </Button>
+                    </form>
+                </Form>
+            </CardWrapper>
+        </Suspense>
     );
 };
