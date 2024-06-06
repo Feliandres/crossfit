@@ -30,10 +30,10 @@ yarn-error.log*
 .env
 
 # AUTH
-.auth.ts
-.auth.config.ts
-.routes.ts
-.middleware.ts
+#.auth.ts
+#.auth.config.ts
+#.routes.ts
+#.middleware.ts
 
 # vercel
 .vercel
