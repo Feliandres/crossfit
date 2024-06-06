@@ -1,8 +1,7 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { startTransition, useCallback, useEffect, useState, useRef } from "react";
 import { BeatLoader } from "react-spinners";
 import { useSearchParams } from "next/navigation";
-
 import axios from 'axios';
 import { CardWrapper } from "@/components/auth/card-wrapper";
 import { FormError } from "@/components/form-error";
@@ -11,6 +10,7 @@ import { FormSuccess } from "@/components/form-success";
 export const NewVerificationForm = () => {
     const [error, setError] = useState<string | undefined>();
     const [success, setSuccess] = useState<string | undefined>();
+    const attemptedVerification = useRef(false); // Ref to track if verification has been attempted
 
     const searchParams = useSearchParams();
     const token = searchParams.get("token");
@@ -38,27 +38,27 @@ export const NewVerificationForm = () => {
     };
 
     const onSubmit = useCallback(() => {
-        if (success || error) return;
+        if (success || error || attemptedVerification.current) return;
 
         if (!token) {
             setError("Missing token");
             return;
         }
 
-        verifyToken(token)
-            .then((data) => {
-                console.log("Verification response:", data); // Debugging
+        attemptedVerification.current = true; // Set ref to true to prevent re-submission
 
-                if (data.success) {
+        startTransition(() => {
+            verifyToken(token)
+                .then((data) => {
+                    console.log("Verification response:", data); // Debugging
                     setSuccess(data.success);
-                } else {
                     setError(data.error);
-                }
-            })
-            .catch((error) => {
-                setError("Something went wrong");
-                console.error("Verification error:", error); // Debugging
-            });
+                })
+                .catch((error) => {
+                    setError("Something went wrong");
+                    console.error("Verification error:", error); // Debugging
+                });
+        });
     }, [token, success, error]);
 
     useEffect(() => {

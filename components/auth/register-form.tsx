@@ -10,7 +10,8 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {FormError} from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-import { register } from "@/actions/register";
+import axios from "axios";
+//import { register } from "@/actions/register";
 
 import {
     Form,
@@ -35,12 +36,32 @@ export const RegisterForm = () => {
         },
     });
 
+    const register = async (name: string, email: string, password: string) => {
+        try {
+            const response = await axios.post('/api/register', { name, email, password });
+            return response.data;
+        } catch (error) {
+            console.error("Error verifying token:", error);
+
+            if (axios.isAxiosError(error)) {
+                // Axios error has a response property
+                return { error: error.response?.data?.error || 'Something went wrong' };
+            } else if (error instanceof Error) {
+                // General JS error
+                return { error: error.message };
+            } else {
+                // Fallback for any other type of error
+                return { error: 'Something went wrong' };
+            }
+        }
+    };
+
     const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
         setError("");
         setSuccess("");
 
         startTransition(() => {
-            register(values)
+            register(values.name, values.email, values.password)
                 .then((data) => {
                     setError(data.error);
                     setSuccess(data.success);
@@ -63,6 +84,24 @@ export const RegisterForm = () => {
                 <div className="space-y-4">
                     <FormField
                         control={form.control}
+                        name="name"
+                        render={({field}) => (
+                            <FormItem>
+                                <FormLabel>Name</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        {...field}
+                                        disabled={isPending}
+                                        placeholder="John Doe"
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={form.control}
                         name="email"
                         render={({field}) => (
                             <FormItem>
@@ -73,24 +112,6 @@ export const RegisterForm = () => {
                                         disabled={isPending}
                                         placeholder="john.doe@gmail.com"
                                         type="email"
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name="name"
-                        render={({field}) => (
-                            <FormItem>
-                                <FormLabel>Name</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        {...field}
-                                        disabled={isPending}
-                                        placeholder="John Doe"
                                     />
                                 </FormControl>
                                 <FormMessage />

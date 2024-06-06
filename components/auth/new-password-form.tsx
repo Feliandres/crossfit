@@ -56,7 +56,7 @@ export const NewPasswordForm = () => {
             }
         }
     };
-    
+
     const onSubmit = useCallback((values: z.infer<typeof NewPasswordSchema>) => {
         console.log("Form submitted with values:", values); // Debugging
         setError("");
@@ -67,20 +67,13 @@ export const NewPasswordForm = () => {
             return;
         }
 
-        resetPassword(token, values.password)
-            .then((data) => {
-                console.log("Password reset response:", data); // Debugging
-
-                if (data.success) {
-                    setSuccess(data.success);
-                } else {
+        startTransition(() => {
+            resetPassword(token, values.password)
+                .then((data) => {
                     setError(data.error);
-                }
-            })
-            .catch((error) => {
-                setError("Something went wrong");
-                console.error("Password reset error:", error); // Debugging
-            });
+                    setSuccess(data.success);
+                });
+        });
     }, [token]);
 
     return (

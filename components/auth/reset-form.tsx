@@ -10,7 +10,8 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {FormError} from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-import { reset } from "@/actions/reset";
+import axios from "axios";
+//import { reset } from "@/actions/reset";
 
 import {
     Form,
@@ -34,18 +35,38 @@ export const ResetForm = () => {
         },
     });
 
+    const reset = async (email: string) => {
+        try {
+            const response = await axios.post('/api/reset_password', { email });
+            return response.data;
+        } catch (error) {
+            console.error("Error verifying token:", error);
+
+            if (axios.isAxiosError(error)) {
+                // Axios error has a response property
+                return { error: error.response?.data?.error || 'Something went wrong' };
+            } else if (error instanceof Error) {
+                // General JS error
+                return { error: error.message };
+            } else {
+                // Fallback for any other type of error
+                return { error: 'Something went wrong' };
+            }
+        }
+    };
+
     const onSubmit = (values: z.infer<typeof ResetSchema>) => {
         setError("");
         setSuccess("");
-        
+
         startTransition(() => {
-            reset(values)
+            reset(values.email)
                 .then((data) => {
                     setError(data?.error);
                     setSuccess(data?.success);
                 });
         });
-        
+
     };
 
     return (
@@ -86,7 +107,7 @@ export const ResetForm = () => {
                     type="submit"
                     className="w-full"
                 >
-                    Semd reset email
+                    Send reset email
                 </Button>
             </form>
         </Form>

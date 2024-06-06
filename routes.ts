@@ -8,7 +8,10 @@ export const publicRoutes = [
     "/",
     "/auth/new-verification",
     "/api/verification_token",
-    "/api/new_password"
+    "/api/new_password",
+    "/api/login",
+    "/api/register",
+    "/api/reset_password"
 ];
 
 /**
