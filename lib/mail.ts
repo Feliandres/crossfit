@@ -6,11 +6,7 @@ export const sendVerificationEmail = async (
     email: string,
     token: string
 ) => {
-<<<<<<< HEAD
     const  confirmLink = `https://crossfit-xi.vercel.app/auth/new-verification?token=${token}`;
-=======
-    const confirmLink = `http://localhost:3000/auth/new-verification?token=${token}`;
->>>>>>> 9c41f12f419b04f98443bb68f6dea5672469a670
 
     await resend.emails.send({
         from: "onboarding@resend.dev",
