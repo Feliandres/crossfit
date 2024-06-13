@@ -28,7 +28,10 @@
     "clsx": "^2.1.1",
     "next": "14.2.3",
     "next-auth": "^5.0.0-beta.19",
+<<<<<<< HEAD
     "next-themes": "^0.3.0",
+=======
+>>>>>>> 9c41f12f419b04f98443bb68f6dea5672469a670
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.51.5",
@@ -36,7 +39,10 @@
     "react-icons": "^5.2.1",
     "react-spinners": "^0.13.8",
     "resend": "^3.2.0",
+<<<<<<< HEAD
     "sonner": "^1.5.0",
+=======
+>>>>>>> 9c41f12f419b04f98443bb68f6dea5672469a670
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^9.0.1",

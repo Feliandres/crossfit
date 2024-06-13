@@ -1,4 +1,5 @@
 module.exports = {
+<<<<<<< HEAD
   experimental: {
     missingSuspenseWithCSRBailout: false,
   },
@@ -31,3 +32,9 @@ module.exports = {
       ];
     },
 }
+=======
+    experimental: {
+      missingSuspenseWithCSRBailout: false,
+    },
+  }
+>>>>>>> 9c41f12f419b04f98443bb68f6dea5672469a670
