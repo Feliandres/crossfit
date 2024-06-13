@@ -84,11 +84,7 @@ model Account {
   userId            String  @map("user_id")
   type              String
   provider          String
-<<<<<<< HEAD
-  providerAccountId String? @map("provider_account_id")
-=======
   providerAccountId String  @map("provider_account_id")
->>>>>>> 9c41f12f419b04f98443bb68f6dea5672469a670
   refresh_token     String?
   access_token      String?
   expires_at        Int?
