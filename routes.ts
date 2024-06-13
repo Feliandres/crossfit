@@ -11,7 +11,8 @@ export const publicRoutes = [
     "/api/new_password",
     "/api/login",
     "/api/register",
-    "/api/reset_password"
+    "/api/reset_password",
+    "/api/logout"
 ];
 
 /**

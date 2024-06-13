@@ -1,20 +1,34 @@
-import { auth, signOut } from "@/auth";
+"use client";
 
-const SettingsPage = async () => {
-    const session = await auth();
+import {
+    Card,
+    CardHeader,
+    CardContent
+} from "@/components/ui/card"
+import { Button } from "@/components/ui/button";
+import { useTransition } from "react";
+
+const SettingsPage =  () => {
+
+    const onClick = () => {
+        //s
+    }
+
 
     return (
-        <div>
-            {JSON.stringify(session)}
-            <form
-                action={async () => {
-                    "use server"
-                    await signOut()
-                }}
-                >
-                <button type="submit">Sign Out</button>
-            </form>
-        </div>
+        <Card className="w-[600px]">
+            <CardHeader>
+                <p className="text-2xl font-semibold text-center">
+                    Settings
+                </p>
+            </CardHeader>
+
+            <CardContent>
+                <Button>
+                    Update name
+                </Button>
+            </CardContent>
+        </Card>
     )
 }
 
