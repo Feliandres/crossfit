@@ -1,12 +1,9 @@
 import * as z from "zod";
 
-<<<<<<< HEAD
 export const SettingsSchema = z.object({
     name: z.optional(z.string())
 });
 
-=======
->>>>>>> 9c41f12f419b04f98443bb68f6dea5672469a670
 export const ResetSchema = z.object({
     email: z.string().email({
         message: "Email is required",
